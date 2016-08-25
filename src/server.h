@@ -1,7 +1,7 @@
 /*
  * server.h - Define shadowsocks server's buffers and callbacks
  *
- * Copyright (C) 2013 - 2015, Max Lv <max.c.lv@gmail.com>
+ * Copyright (C) 2013 - 2016, Max Lv <max.c.lv@gmail.com>
  *
  * This file is part of the shadowsocks-libev.
  *
@@ -53,6 +53,7 @@ typedef struct server {
     int fd;
     int stage;
     buffer_t *buf;
+    buffer_t *header_buf;
 
     int auth;
     struct chunk *chunk;
@@ -68,6 +69,11 @@ typedef struct server {
 
     struct cork_dllist_item entries;
 } server_t;
+
+typedef struct query {
+    server_t *server;
+    char hostname[257];
+} query_t;
 
 typedef struct remote_ctx {
     ev_io io;
